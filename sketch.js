@@ -2,7 +2,10 @@ let player;
 let socket;
 let players = {};
 function preload(){
-  fistCat = loadImage('assets/img/fistCat.png')
+  fistB = loadImage('assets/img/fistCat/fistB.png')
+  fistF = loadImage('assets/img/fistCat/fistF.png')
+  fistL = loadImage('assets/img/fistCat/fistL.png')
+  fistR = loadImage('assets/img/fistCat/fistR.png')
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
@@ -10,6 +13,12 @@ function preload(){
 
 function setup() {
   createCanvas(800, 800)
+  fistF.resize(75,75)
+  fistB.resize(75,75)
+  fistR.resize(75,75)
+  fistL.resize(75,75)
+
+  player = new Player(350,350)
   socket = io('http://207.63.186.14:5000');
   socket.on('connect', function(sock){
     print("connected")
