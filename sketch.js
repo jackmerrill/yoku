@@ -35,7 +35,7 @@ function setup() {
     players[data.sid].x = data.x;
     players[data.sid].y = data.y;
   });
-  fistCat.resize(30,30)
+  //fistCat.resize(30,30)
   player = new Player(100,100)
 }
 
