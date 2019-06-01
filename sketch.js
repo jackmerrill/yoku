@@ -1,7 +1,11 @@
 let player;
+var tmap, s, stagIndex;
 
 function preload(){
-  fistCat = loadImage('assets/img/fistCat.png')
+  fistB = loadImage('assets/img/fistCat/fistB.png')
+  fistF = loadImage('assets/img/fistCat/fistF.png')
+  fistL = loadImage('assets/img/fistCat/fistL.png')
+  fistR = loadImage('assets/img/fistCat/fistR.png')
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
@@ -9,44 +13,36 @@ function preload(){
 
 function setup() {
   createCanvas(800, 800)
-  fistCat.resize(30,30)
-  player = new Player(100,100)
+  fistF.resize(75,75)
+  fistB.resize(75,75)
+  fistR.resize(75,75)
+  fistL.resize(75,75)
+
+  player = new Player(350,350)
 }
 
 function draw() {
   background(0);
-  image(fistCat, player.x, player.y)
+  image(fistF, player.x, player.y)
   if (keyIsDown(65)) { //A
     console.log(`Key ${keyCode.key} pressed.`)
-    player.x -= player.speed
+    // player.x -= player.speed
+    image(fistL, player.x, player.y)
   } 
   if (keyIsDown(68)) {//D
     console.log(`Key ${keyCode.key} pressed.`)
-    player.x += player.speed
+    // player.x += player.speed
+    image(fistR, player.x, player.y)
   }  
   if (keyIsDown(87)) { //W
     console.log(`Key ${keyCode.key} pressed.`)
-    player.y -= player.speed
+    // player.y -= player.speed
+    image(fistB, player.x, player.y)
   }  
   if (keyIsDown(83)) {//S
     console.log(`Key ${keyCode.key} pressed.`)
-    player.y += player.speed
+    // player.y += player.speed
+    image(fistF, player.x, player.y)
   } 
 
-}
-
-function keyPressed(keyCode) {
-  if (keyCode.keyCode == 65 && keyIsDown(keyCode.keyCode)) { //A
-    console.log(`Key ${keyCode.key} pressed.`)
-    player.x -= player.speed
-  } else if (keyCode.keyCode == 68) {//D
-    console.log(`Key ${keyCode.key} pressed.`)
-    player.x += player.speed
-  } else if (keyCode.keyCode == 87) { //W
-    console.log(`Key ${keyCode.key} pressed.`)
-    player.y -= player.speed
-  } else if (keyCode.keyCode == 83) {//S
-    console.log(`Key ${keyCode.key} pressed.`)
-    player.y += player.speed
-  }
 }
