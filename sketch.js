@@ -46,25 +46,30 @@ function draw() {
     //print(pyer);
     pyer.draw();
   }
+  let needsupdate = false
   if (keyIsDown(65)) { //A
     console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
-    socket.emit('move',{'x':player.x,'y':player.y})
+    needsupdate = true
   } 
   if (keyIsDown(68)) {//D
     console.log(`Key ${keyCode.key} pressed.`)
     player.x += player.speed
-    socket.emit('move',{'x':player.x,'y':player.y})
+    needsupdate = true
   }  
   if (keyIsDown(87)) { //W
     console.log(`Key ${keyCode.key} pressed.`)
     player.y -= player.speed
-    socket.emit('move',{'x':player.x,'y':player.y})
+    needsupdate = true
   }  
   if (keyIsDown(83)) {//S
     console.log(`Key ${keyCode.key} pressed.`)
     player.y += player.speed
+    needsupdate = true
+  }
+  if(needsupdate){
     socket.emit('move',{'x':player.x,'y':player.y})
-  } 
+  }
+  
 }
 
