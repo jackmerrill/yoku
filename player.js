@@ -10,13 +10,25 @@ class Player { // Fists
         this.strength = 5
         this.x = x
         this.y = y
+        this.class = "fists"
     }
-    draw() {
-        ellipse(this.x, this.y, 30)
+    draw(cls, direction) {
+        if (cls == "fists" && direction == "down") {
+            image(fistB, Player.x, Player.y)
+        }
+        if (cls == "fists" && direction == "up") {
+            image(fistF, Player.x, Player.y)
+        }
+        if (cls == "fists" && direction == "left") {
+            image(fistL, Player.x, Player.y)
+        }
+        if (cls == "fists" && direction == "right") {
+            image(fistR, Player.x, Player.y)
+        }
     }
 }
 
-class Engineer extends Person {
+class Engineer extends Player {
     constructor(x,y){
         super()
         this.shield = 25
@@ -26,7 +38,7 @@ class Engineer extends Person {
     }
 }
 
-class Blade extends Person {
+class Blade extends Player {
     constructor(x,y){
         super()
         this.shield = 50
@@ -36,7 +48,7 @@ class Blade extends Person {
     }
 }
 
-class Mage extends Person {
+class Mage extends Player {
     constructor(x,y) {
         super()
         this.shield = 15
@@ -46,7 +58,7 @@ class Mage extends Person {
     }
 }
 
-class Bow extends Person {
+class Bow extends Player {
     constructor(x,y) {
         super()
         this.shield = 15

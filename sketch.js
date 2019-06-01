@@ -29,8 +29,12 @@ function setup() {
     print("emit")
   })
   socket.on('addPlayer',function(data){
+<<<<<<< HEAD
     players[data.sid] = new Player(data.x,data.y,data.name)
     print("added player")
+=======
+    players[data.sid] = new Player(data.x,data.y, data.class)
+>>>>>>> c67439d96e2594d951a5e07deb10b3790ddef792
   });
   socket.on('remove player',function(data){
     delete players[data.sid];
@@ -39,6 +43,7 @@ function setup() {
   socket.on('player move',function(data){
     players[data.sid].x = data.x;
     players[data.sid].y = data.y;
+    players[data.sid].class = data.class
   });
   player = new Player(100,100,"name")
 }
@@ -55,25 +60,29 @@ function draw() {
   if (keyIsDown(65)) { //A
     console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
+    player.draw(player.class ,"left")
     needsupdate = true
   } 
   if (keyIsDown(68)) {//D
     console.log(`Key ${keyCode.key} pressed.`)
     player.x += player.speed
+    player.draw(player.class ,"right")
     needsupdate = true
   }  
   if (keyIsDown(87)) { //W
     console.log(`Key ${keyCode.key} pressed.`)
     player.y -= player.speed
+    player.draw(player.class ,"up")
     needsupdate = true
   }  
   if (keyIsDown(83)) {//S
     console.log(`Key ${keyCode.key} pressed.`)
     player.y += player.speed
+    player.draw(player.class ,"down")
     needsupdate = true
   }
   if(needsupdate){
-    socket.emit('move',{'x':player.x,'y':player.y})
+    socket.emit('move',{'x':player.x,'y':player.y,'class':player.class})
   }
   
 }
