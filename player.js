@@ -10,6 +10,9 @@ class Player { // Fists
         this.x = x
         this.y = y
     }
+    draw() {
+        ellipse(this.x, this.y, 30)
+    }
 }
 
 class Engineer extends Person {
