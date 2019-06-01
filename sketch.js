@@ -47,7 +47,7 @@ function draw() {
     //print(pyer);
     pyer.draw();
   }
-  needsupdate = false
+  let needsupdate = false
   if (keyIsDown(65)) { //A
     console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
