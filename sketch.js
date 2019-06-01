@@ -22,6 +22,7 @@ function setup() {
   socket = io('http://207.63.186.14:5000');
   socket.on('connect', function(sock){
     print("connected")
+    socket.emit('move',{'x':player.x,'y':player.y})
   });
 
   socket.on('addPlayer',function(data){
