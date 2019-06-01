@@ -1,5 +1,6 @@
 class Player { // Fists
-    constructor(x,y) {
+    constructor(x,y, name) {
+        this.name = name
         this.health = 100
         this.shield = 0
         this.speed = 5 // divide by 4th

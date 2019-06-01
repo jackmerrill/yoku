@@ -22,11 +22,15 @@ function setup() {
   socket = io('http://207.63.186.14:5000');
   socket.on('connect', function(sock){
     print("connected")
-    socket.emit('move',{'x':player.x,'y':player.y})
-  });
 
+  });
+  socket.on('initPlayer',function() {
+    socket.emit('initPlayer',player)
+    print("emit")
+  })
   socket.on('addPlayer',function(data){
-    players[data.sid] = new Player(data.x,data.y)
+    players[data.sid] = new Player(data.x,data.y,data.name)
+    print("added player")
   });
   socket.on('remove player',function(data){
     delete players[data.sid];
@@ -36,7 +40,7 @@ function setup() {
     players[data.sid].x = data.x;
     players[data.sid].y = data.y;
   });
-  player = new Player(100,100)
+  player = new Player(100,100,"name")
 }
 
 function draw() {
