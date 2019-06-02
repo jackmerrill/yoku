@@ -10,8 +10,18 @@ function preload(){
   fistF = loadImage('assets/img/fistCat/fistF.png')
   fistL = loadImage('assets/img/fistCat/fistL.png')
   fistR = loadImage('assets/img/fistCat/fistR.png')
-  fistH = loadImage('assets/img/fistCat/fistH.png')
   tmap = loadTiledMap("Yoku", "data");
+
+  // WEAPONS
+  fistH = loadImage('assets/img/fistCat/fistH.png')
+  mageH = loadImage('assets/img/mageCat/mageH.png')
+  engiH = loadImage('assets/img/engiCat/enWrench.png')
+  engiT = loadImage('assets/img/engiCat/enTur.png')
+  bowE = loadImage('assets/img/bowCat/bowBowE.png')
+  bowL = loadImage('assets/img/bowCat/bowBowL.png')
+  bowA = loadImage('assets/img/bowCat/bowArrow.png')
+  bladeS = loadImage('assets/img/bladeCat/bladeSword.png')
+
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
@@ -52,6 +62,7 @@ function setup() {
     players[data.sid].cass = data.cass;
   });
   player = new Player(width/2,width/2,"name")
+  weapon = new Weapon()
   s = tmap.getMapSize();
   fill(0)
 }
@@ -68,6 +79,7 @@ function draw() {
   for (let i = 0; i < Object.keys(players).length; i++) {
     pyer = players[Object.keys(players)[i]];
     pyer.draw();
+    weapon.draw()
   }
   let needsupdate = false
   if (keyIsDown(65)) { //A
@@ -96,6 +108,11 @@ function draw() {
     player.y += player.speed
     player.direction = "down"
     player.draw()
+    needsupdate = true
+  }
+  if (keyIsDown(37)) { // LeftArrow
+    weapon.rot(5.0)
+    weapon.draw()
     needsupdate = true
   }
   player.cass = "fists"
