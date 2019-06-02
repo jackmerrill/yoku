@@ -15,11 +15,12 @@ let currentX;
 let currentY;
 let oldx
 let oldy
+var radio;
 let images = {};
 let rand;
-let name
-let login
-
+let nameM = "";
+let login = false;
+let radval = "";
 function loadCat(cat) {
   let fistB = loadImage('assets/img/'+cat+'Cat/'+cat+'B.png')
   let fistF = loadImage('assets/img/'+cat+'Cat/'+cat+'F.png')
@@ -34,7 +35,7 @@ function loadCat(cat) {
 }
 function preload(){
   login = false
-  let words = ["fist","mage","bow","engi","blade","fists"]
+  let words = ["fist","mage","bow","engi","blade","fists","egg"]
   for (let i = 0; i < words.length; i++) {
     let tempCat = loadCat(words[i])
     for (let index = 0; index < tempCat.keys; index++) {
@@ -58,15 +59,6 @@ function preload(){
 
   // LOGO
   logo = loadImage('assets/Logo.png')
-
-
-
-
-  
-
-  // engiCat = loadImage('assets/img/engiCat.png')
-  // mageCat = loadImage('assets/img/mageCat.png')
-  // bowCat = loadImage('assets/img/bowCat.png')
 }
 function setup() {
   createCanvas(1280,720)
@@ -78,17 +70,31 @@ function setup() {
   textAlign(CENTER)
   input = createInput();
   input.position(width/2 - 80, 240);
-
+  radio = createRadio();
+  radio.option('blade');
+  radio.option('bow');
+  radio.option('engineer');
+  radio.option('fist');
+  radio.option('mage');
+  radio.position(width/2-160, 260);
+  textAlign(CENTER);
   button = createButton('submit');
   button.position(800-80, 240, 65);
-  button.mousePressed(function(){name = input.value()});
+  button.mousePressed(callb);
   fill(0)
   textSize(24)
   text("Nickname", width/2, 220)
-  afterLogin()
+}
+function callb() {
+  input.hide();
+  button.hide();
+  radval = radio.value();
+  nameM = input.value();
+  radio.hide();
+  afterLogin();
+  //socket.emit("nameUpdate",input.value())
   login = true
 }
-
 function afterLogin() {
 
   //player = new Player(350,350)
@@ -99,7 +105,8 @@ function afterLogin() {
   
   });
   socket.on('initPlayer',function() {
-    socket.emit("nameUpdate","Cool name b")
+    console.log(nameM)
+    socket.emit("nameUpdate",nameM)
   })
   socket.on('setsid', function(sid){
     print("set sid")
@@ -137,6 +144,10 @@ function afterLogin() {
       players[data.sid].draw();
     }
     else {
+      if (player.cass != players[data.sid].cass) {
+        player.cass = players[data.sid].cass
+        player.resize()
+      }
       player.name = players[data.sid].name
       player.health = players[data.sid].health
       player.xp = players[data.sid].xp
@@ -153,8 +164,11 @@ function afterLogin() {
   let viewporty = y;
   oldx = offsetx;
   oldy = offsety;
+  if(name == "egg") {
+    radval = "egg"
+  }
   
-  player = new Player(x,y,name,rand)
+  player = new Player(x,y,name,radval)
   weapon = new Weapon()
 
   fill(0)

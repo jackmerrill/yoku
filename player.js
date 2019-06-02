@@ -15,6 +15,13 @@ class Player { // Fists
         this.offsetx = 0;
         this.offsety = 0;
         this.direction = direction
+        print(this.cass)
+        images[this.cass]["B"].resize(100,100)
+        images[this.cass]["F"].resize(100,100)
+        images[this.cass]["L"].resize(100,100)
+        images[this.cass]["R"].resize(100,100)
+    }
+    resize() {
         images[this.cass]["B"].resize(100,100)
         images[this.cass]["F"].resize(100,100)
         images[this.cass]["L"].resize(100,100)
