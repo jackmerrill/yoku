@@ -32,6 +32,16 @@ function preload(){
   bowA = loadImage('assets/img/bowCat/bowArrow.png')
   bladeS = loadImage('assets/img/bladeCat/bladeSword.png')
 
+  // LOGO
+  logo = loadImage('assets/img/logo.png')
+
+
+
+
+
+  // Form
+  
+
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
@@ -120,12 +130,12 @@ function draw() {
   //background(tmap.getBackgroundColor());
   tmap.draw(player.x, player.y);
   fill(255)
-  text("Camera Coords: "+x+","+y,10,255)
-  text("Map Size: " + tmap.getMapSize(), 10, 300);
-  text("Layer 0 Type: " + tmap.getType(0), 10, 350);
   textSize(24)
   text("Health: "+player.health, 1100,50)
   text("XP: "+player.xp, 1100, 100)
+  if (player.xp >= 100) {
+    text("Press U to level up", 1100, 150)
+  }
 
   
   //image(fistCat, player.x, player.y)
