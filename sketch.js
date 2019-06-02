@@ -63,6 +63,15 @@ function setup() {
   socket.on('remove player',function(data){
     delete players[data.sid];
   });
+  socket.on('respawn',function(data){
+    if(data.sid == player.sid) {
+      player.x = (s.x*tmap.getTileSize().x)/2;
+      player.y = (s.y*tmap.getTileSize().y)/2;
+      player.health = 100
+      socket.emit('move',player)
+    }
+    
+  });
 
   socket.on('player move',function(data){
     players[data.sid].sid = data.sid;
