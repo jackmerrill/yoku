@@ -78,3 +78,24 @@ class Bow extends Player {
         this.strength = 10
     }
 }
+
+class Weapon {
+    constructor() {
+        this.x = x
+        this.y = y
+        this.rotation = -180
+    }
+    draw() {
+        if (player.cass == "fists") {
+            image(fistH, player.x+30, player.y)
+        }
+        else {
+            print(player)
+            ellipse(player.x, player.y, 30)
+        }
+
+    }
+    rot(num) {
+        rotate(num)
+    }
+}

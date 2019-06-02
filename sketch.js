@@ -16,15 +16,25 @@ function preload(){
   fistF = loadImage('assets/img/fistCat/fistF.png')
   fistL = loadImage('assets/img/fistCat/fistL.png')
   fistR = loadImage('assets/img/fistCat/fistR.png')
-  fistH = loadImage('assets/img/fistCat/fistH.png')
   tmap = loadTiledMap("Yoku", "data");
+
+  // WEAPONS
+  fistH = loadImage('assets/img/fistCat/fistH.png')
+  mageH = loadImage('assets/img/mageCat/mageH.png')
+  engiH = loadImage('assets/img/engiCat/enWrench.png')
+  engiT = loadImage('assets/img/engiCat/enTur.png')
+  bowE = loadImage('assets/img/bowCat/bowBowE.png')
+  bowL = loadImage('assets/img/bowCat/bowBowL.png')
+  bowA = loadImage('assets/img/bowCat/bowArrow.png')
+  bladeS = loadImage('assets/img/bladeCat/bladeSword.png')
+
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
 }
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight)
+  createCanvas(window.innerWidth-4.75, window.innerHeight-4.75)
   fistF.resize(75,75)
   fistB.resize(75,75)
   fistR.resize(75,75)
@@ -58,6 +68,7 @@ function setup() {
     players[data.sid].cass = data.cass;
   });
   player = new Player(76500,4800,"name")
+  weapon = new Weapon()
   s = tmap.getMapSize();
   fill(0)
 }
@@ -81,6 +92,7 @@ function draw() {
     pyer.offsetx = -player.x+width/2
     pyer.offsety = -player.y+height/2
     pyer.draw();
+    weapon.draw()
   }
   let needsupdate = false
   if (keyIsDown(65)) { //A
@@ -109,6 +121,11 @@ function draw() {
     player.y += player.speed
     player.direction = "down"
     player.draw()
+    needsupdate = true
+  }
+  if (keyIsDown(37)) { // LeftArrow
+    weapon.rot(5.0)
+    weapon.draw()
     needsupdate = true
   }
   player.cass = "fists"
