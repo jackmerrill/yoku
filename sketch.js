@@ -19,7 +19,6 @@ var radio;
 let images = {};
 let rand;
 let name
-let login
 let song
 
 let nameM = "";
@@ -106,6 +105,7 @@ function callb() {
   afterLogin();
   //socket.emit("nameUpdate",input.value())
   login = true
+  song.stop()
 }
 function afterLogin() {
 
