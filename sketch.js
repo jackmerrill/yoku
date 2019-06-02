@@ -34,7 +34,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(window.innerWidth-4.75, window.innerHeight-4.75)
+  createCanvas(1280,720)
   fistF.resize(75,75)
   fistB.resize(75,75)
   fistR.resize(75,75)
@@ -83,6 +83,11 @@ function draw() {
   text("Camera Coords: "+x+","+y,10,255)
   text("Map Size: " + tmap.getMapSize(), 10, 300);
   text("Layer 0 Type: " + tmap.getType(0), 10, 350);
+  textSize(24)
+  text("Health: "+player.health, 1100,50)
+  text("XP: "+player.xp, 1100, 100)
+
+  
   //image(fistCat, player.x, player.y)
   player.offsetx = -player.x+width/2
   player.offsety = -player.y+height/2
