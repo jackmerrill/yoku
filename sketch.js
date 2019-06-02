@@ -34,11 +34,7 @@ function preload(){
 }
 
 function setup() {
-<<<<<<< HEAD
   createCanvas(1280,720)
-=======
-  createCanvas(1280, 720)
->>>>>>> 02b8bc67c73051879ba61eb8f2b713314b57cc33
   fistF.resize(75,75)
   fistB.resize(75,75)
   fistR.resize(75,75)
