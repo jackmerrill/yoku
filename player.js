@@ -1,5 +1,5 @@
 class Player { // Fists
-    constructor(x,y, name, cass,direction) {
+    constructor(x,y, name, cass,direction="left") {
         this.name = name
         this.health = 100
         this.shield = 0

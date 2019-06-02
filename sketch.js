@@ -15,7 +15,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight)
+  createCanvas(window.innerWidth-4.75, window.innerHeight-4.75)
   fistF.resize(75,75)
   fistB.resize(75,75)
   fistR.resize(75,75)
