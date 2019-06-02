@@ -18,6 +18,10 @@ let oldy
 var radio;
 let images = {};
 let rand;
+let name
+let login
+let song
+
 let nameM = "";
 let login = false;
 let radval = "";
@@ -59,10 +63,18 @@ function preload(){
 
   // LOGO
   logo = loadImage('assets/Logo.png')
+
+  // MUSIC
+  song = loadSound('assets/music.m4a')
+
+  // engiCat = loadImage('assets/img/engiCat.png')
+  // mageCat = loadImage('assets/img/mageCat.png')
+  // bowCat = loadImage('assets/img/bowCat.png')
 }
 function setup() {
   createCanvas(1280,720)
 
+  song.play()
   logo.resize(625.5, 0)
   fill(255)
   imageMode(CENTER)
