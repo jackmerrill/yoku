@@ -19,10 +19,10 @@ class Player { // Fists
         //ellipse(this.x, this.y, 30)
         imageMode(CENTER);
         
-        if (this.cass == "fists" && this.direction == "down") {
+        if (this.cass == "fists" && this.direction == "up") {
             image(fistB, this.x+this.offsetx, this.y+this.offsety)
         }
-        else if(this.cass == "fists" && this.direction == "up") {
+        else if(this.cass == "fists" && this.direction == "down") {
             image(fistF, this.x+this.offsetx, this.y+this.offsety)
         }
         else if(this.cass == "fists" && this.direction == "left") {

@@ -3,10 +3,10 @@ let socket;
 let SID;
 let players = {};
 let playersNew = {};
-let x= 76500
-let y = 4800
-let offsetx = 76500;
-let offsety = 4800;
+let x= 0;
+let y = 0;
+let offsetx = 0;
+let offsety = 0;
 let viewportx = x;
 let viewporty = y;
 let viewportxsize = 1000;
@@ -34,7 +34,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(window.innerWidth-4.75, window.innerHeight-4.75)
+  createCanvas(1280, 720)
   fistF.resize(75,75)
   fistB.resize(75,75)
   fistR.resize(75,75)
@@ -51,6 +51,10 @@ function setup() {
   socket.on('initPlayer',function() {
     print("emit")
   })
+  socket.on('setsid', function(sid){
+    print("set sid")
+    player.sid = sid["sid"]
+  })
   socket.on('addPlayer',function(data){
     print("added player")
     players[data.sid] = new Player(data.x,data.y,data.name,data.cass,data.direction)
@@ -66,10 +70,21 @@ function setup() {
     players[data.sid].y = data.y
     players[data.sid].direction = data.direction;
     players[data.sid].cass = data.cass;
+    if(data.sid != player.sid){
+      players[data.sid].draw();
+    }
   });
-  player = new Player(76500,4800,"name")
-  weapon = new Weapon()
   s = tmap.getMapSize();
+  let x= (s.x*tmap.getTileSize().x)/2
+  let y = (s.y*tmap.getTileSize().y)/2;
+  
+  let offsetx = (s.x*tmap.getTileSize().x)/2;
+  let offsety = (s.y*tmap.getTileSize().y)/2;
+  let viewportx = x;
+  let viewporty = y;
+  player = new Player(x,y,"name")
+  weapon = new Weapon()
+
   fill(0)
 }
 
@@ -91,7 +106,10 @@ function draw() {
     pyer = players[Object.keys(players)[i]];
     pyer.offsetx = -player.x+width/2
     pyer.offsety = -player.y+height/2
-    pyer.draw();
+    if(pyer.sid != player.sid){
+      pyer.draw();
+    }
+    
     weapon.draw()
   }
   let needsupdate = false
@@ -99,28 +117,28 @@ function draw() {
     //console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
     player.direction = "left"
-    player.draw()
+    //player.draw()
     needsupdate = true
   } 
   if (keyIsDown(68)) {//D
     //console.log(`Key ${keyCode.key} pressed.`)
     player.x += player.speed
     player.direction = "right"
-    player.draw()
+    //player.draw()
     needsupdate = true
   }  
   if (keyIsDown(87)) { //W
     //console.log(`Key ${keyCode.key} pressed.`)
     player.y -= player.speed
     player.direction = "up"
-    player.draw()
+    //player.draw()
     needsupdate = true
   }  
   if (keyIsDown(83)) {//S
     //console.log(`Key ${keyCode.key} pressed.`)
     player.y += player.speed
     player.direction = "down"
-    player.draw()
+    //player.draw()
     needsupdate = true
   }
   if (keyIsDown(37)) { // LeftArrow
