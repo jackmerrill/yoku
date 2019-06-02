@@ -73,7 +73,7 @@ function setup() {
   radio = createRadio();
   radio.option('blade');
   radio.option('bow');
-  radio.option('engineer');
+  radio.option('engi');
   radio.option('fist');
   radio.option('mage');
   radio.position(width/2-160, 260);
