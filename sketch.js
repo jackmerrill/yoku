@@ -1,5 +1,6 @@
 let player;
 let socket;
+let SID;
 let players = {};
 function preload(){
   fistB = loadImage('assets/img/fistCat/fistB.png')
@@ -20,18 +21,20 @@ function setup() {
   fistL.resize(75,75)
   fistH.resize(75,75)
 
-  player = new Player(350,350)
+  //player = new Player(350,350)
   socket = io('http://207.63.186.14:5000');
   socket.on('connect', function(sock){
+    socket.emit('initPlayer',player)
     print("connected")
 
   });
   socket.on('initPlayer',function() {
-    socket.emit('initPlayer',player)
     print("emit")
   })
   socket.on('addPlayer',function(data){
-    players[data.sid] = new Player(data.x,data.y, data.class)
+    
+    players[data.sid] = new Player(data.x,data.y,data.name,data.cass,data.direction)
+    players[data.sid].sid = data.sid;
     console.log(players)
   });
   socket.on('remove player',function(data){
@@ -39,11 +42,15 @@ function setup() {
   });
 
   socket.on('player move',function(data){
+    print(data)
+    players[data.sid].sid = data.sid;
     players[data.sid].x = data.x;
     players[data.sid].y = data.y;
-    players[data.sid].class = data.class
+    players[data.sid].direction = data.direction;
+    players[data.sid].cass = data.cass;
   });
   player = new Player(100,100,"name")
+  
 }
 
 function draw() {
@@ -51,34 +58,39 @@ function draw() {
   //image(fistCat, player.x, player.y)
   for (let i = 0; i < Object.keys(players).length; i++) {
     pyer = players[Object.keys(players)[i]];
-    //print(pyer);
-    pyer.draw("left");
+    print(pyer);
+    pyer.draw();
   }
   let needsupdate = false
   if (keyIsDown(65)) { //A
     //console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
-    //player.draw(player.class ,"left")
+    player.direction = "left"
+    player.draw()
     needsupdate = true
   } 
   if (keyIsDown(68)) {//D
     //console.log(`Key ${keyCode.key} pressed.`)
     player.x += player.speed
-    //player.draw(player.class ,"right")
+    player.direction = "right"
+    player.draw()
     needsupdate = true
   }  
   if (keyIsDown(87)) { //W
     //console.log(`Key ${keyCode.key} pressed.`)
     player.y -= player.speed
-    //player.draw(player.class ,"up")
+    player.direction = "up"
+    player.draw()
     needsupdate = true
   }  
   if (keyIsDown(83)) {//S
     //console.log(`Key ${keyCode.key} pressed.`)
     player.y += player.speed
-    //player.draw(player.class ,"down")
+    player.direction = "down"
+    player.draw()
     needsupdate = true
   }
+  player.cass = "fists"
   if(needsupdate){
     socket.emit('move',player)
   }

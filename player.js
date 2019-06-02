@@ -1,5 +1,5 @@
 class Player { // Fists
-    constructor(x,y, name) {
+    constructor(x,y, name, cass,direction) {
         this.name = name
         this.health = 100
         this.shield = 0
@@ -10,22 +10,30 @@ class Player { // Fists
         this.strength = 5
         this.x = x
         this.y = y
-        this.class = "fists"
+        this.cass = cass
+        this.direction = direction
     }
-    draw(direction) {
-        ellipse(this.x, this.y, 30)
-        if (this.class == "fists" && direction == "down") {
+    draw() {
+        //ellipse(this.x, this.y, 30)
+        imageMode(CENTER);
+        
+        if (this.cass == "fists" && this.direction == "down") {
             image(fistB, this.x, this.y)
         }
-        if (this.class == "fists" && direction == "up") {
+        else if(this.cass == "fists" && this.direction == "up") {
             image(fistF, this.x, this.y)
         }
-        if (this.class == "fists" && direction == "left") {
+        else if(this.cass == "fists" && this.direction == "left") {
             image(fistL, this.x, this.y)
-        }
-        if (this.class == "fists" && direction == "right") {
+        } 
+        else if (this.cass == "fists" && this.direction == "right") {
             image(fistR, this.x, this.y)
         }
+        else {
+            print(this)
+            ellipse(this.x, this.y, 30)
+        }
+
     }
 }
 
