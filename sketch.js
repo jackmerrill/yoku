@@ -68,7 +68,7 @@ function setup() {
   
   });
   socket.on('initPlayer',function() {
-    print("emit")
+    socket.emit("nameUpdate","Cool name b")
   })
   socket.on('setsid', function(sid){
     print("set sid")
@@ -101,10 +101,12 @@ function setup() {
     players[data.sid].y = data.y
     players[data.sid].direction = data.direction;
     players[data.sid].cass = data.cass;
+    players[data.sid].name = data.name;
     if(data.sid != player.sid){
       players[data.sid].draw();
     }
     else {
+      player.name = players[data.sid].name
       player.health = players[data.sid].health
       player.xp = players[data.sid].xp
       player.speed = players[data.sid].speed
