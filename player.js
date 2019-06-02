@@ -1,5 +1,5 @@
 class Player { // Fists
-    constructor(x,y, name, cass="fist",direction="left") {
+    constructor(x,y, name="", cass="fist",direction="left") {
         
         this.name = name
         this.health = 100
@@ -15,6 +15,13 @@ class Player { // Fists
         this.offsetx = 0;
         this.offsety = 0;
         this.direction = direction
+        print(this.cass)
+        images[this.cass]["B"].resize(100,100)
+        images[this.cass]["F"].resize(100,100)
+        images[this.cass]["L"].resize(100,100)
+        images[this.cass]["R"].resize(100,100)
+    }
+    resize() {
         images[this.cass]["B"].resize(100,100)
         images[this.cass]["F"].resize(100,100)
         images[this.cass]["L"].resize(100,100)
@@ -47,7 +54,9 @@ class Player { // Fists
         }
         push()
         fill(0);
-        text(this.health+"%", this.x+this.offsetx-30, this.y+this.offsety-30)
+        textAlign(CENTER);
+        text(this.health+"%", this.x+this.offsetx, this.y+this.offsety-30)
+        text(this.name, this.x+this.offsetx, this.y+this.offsety+60)
         pop()
 
     }
