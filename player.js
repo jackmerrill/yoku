@@ -14,6 +14,7 @@ class Player { // Fists
     draw(cls, direction) {
         if (cls == "fists" && direction == "down") {
             image(fistB, Player.x, Player.y)
+            image(fistH, Player.x-5, Player.y)
         }
         if (cls == "fists" && direction == "up") {
             image(fistF, Player.x, Player.y)

@@ -6,6 +6,7 @@ function preload(){
   fistF = loadImage('assets/img/fistCat/fistF.png')
   fistL = loadImage('assets/img/fistCat/fistL.png')
   fistR = loadImage('assets/img/fistCat/fistR.png')
+  fistH = loadImage('assets/img/fistCat/fistH.png')
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
@@ -17,6 +18,7 @@ function setup() {
   fistB.resize(75,75)
   fistR.resize(75,75)
   fistL.resize(75,75)
+  fistH.resize(75,75)
 
   player = new Player(350,350)
   socket = io('http://207.63.186.14:5000');
