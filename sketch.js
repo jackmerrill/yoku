@@ -2,6 +2,7 @@ let player;
 let socket;
 let SID;
 let players = {};
+let playersNew = {};
 function preload(){
   fistB = loadImage('assets/img/fistCat/fistB.png')
   fistF = loadImage('assets/img/fistCat/fistF.png')
@@ -35,17 +36,15 @@ function setup() {
     
     players[data.sid] = new Player(data.x,data.y,data.name,data.cass,data.direction)
     players[data.sid].sid = data.sid;
-    console.log(players)
   });
   socket.on('remove player',function(data){
     delete players[data.sid];
   });
 
   socket.on('player move',function(data){
-    print(data)
     players[data.sid].sid = data.sid;
-    players[data.sid].x = data.x;
-    players[data.sid].y = data.y;
+    players[data.sid].x = lerp(players[data.sid].x, data.x, 0.05)
+    players[data.sid].y = lerp(players[data.sid].y, data.y, 0.05)
     players[data.sid].direction = data.direction;
     players[data.sid].cass = data.cass;
   });
@@ -58,7 +57,6 @@ function draw() {
   //image(fistCat, player.x, player.y)
   for (let i = 0; i < Object.keys(players).length; i++) {
     pyer = players[Object.keys(players)[i]];
-    print(pyer);
     pyer.draw();
   }
   let needsupdate = false
