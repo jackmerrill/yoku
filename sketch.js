@@ -19,6 +19,7 @@ let images = {};
 let rand;
 let name
 let login
+let song
 
 function loadCat(cat) {
   let fistB = loadImage('assets/img/'+cat+'Cat/'+cat+'B.png')
@@ -34,7 +35,7 @@ function loadCat(cat) {
 }
 function preload(){
   login = false
-  let words = ["fist","mage","bow","engi","blade","fists"]
+  let words = ["fist","mage","bow","engi","blade","fists", "egg"]
   for (let i = 0; i < words.length; i++) {
     let tempCat = loadCat(words[i])
     for (let index = 0; index < tempCat.keys; index++) {
@@ -59,10 +60,8 @@ function preload(){
   // LOGO
   logo = loadImage('assets/Logo.png')
 
-
-
-
-  
+  // MUSIC
+  song = loadSound('assets/music.m4a')
 
   // engiCat = loadImage('assets/img/engiCat.png')
   // mageCat = loadImage('assets/img/mageCat.png')
@@ -71,6 +70,7 @@ function preload(){
 function setup() {
   createCanvas(1280,720)
 
+  song.play()
   logo.resize(625.5, 0)
   fill(255)
   imageMode(CENTER)
