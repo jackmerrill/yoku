@@ -5,6 +5,12 @@ let players = {};
 let playersNew = {};
 let x= 76500
 let y = 4800
+let offsetx = 76500;
+let offsety = 4800;
+let viewportx = x;
+let viewporty = y;
+let viewportxsize = 1000;
+let viewportysize = 1000;
 function preload(){
   fistB = loadImage('assets/img/fistCat/fistB.png')
   fistF = loadImage('assets/img/fistCat/fistF.png')
@@ -36,7 +42,7 @@ function setup() {
     print("emit")
   })
   socket.on('addPlayer',function(data){
-    
+    print("added player")
     players[data.sid] = new Player(data.x,data.y,data.name,data.cass,data.direction)
     players[data.sid].sid = data.sid;
   });
@@ -51,22 +57,29 @@ function setup() {
     players[data.sid].direction = data.direction;
     players[data.sid].cass = data.cass;
   });
-  player = new Player(width/2,width/2,"name")
+  player = new Player(76500,4800,"name")
   s = tmap.getMapSize();
   fill(0)
 }
 
 function draw() {
   background(0);
+  x = player.x
+  y = player.y
   //background(tmap.getBackgroundColor());
-  tmap.draw(x, y);
+  tmap.draw(player.x, player.y);
   fill(255)
   text("Camera Coords: "+x+","+y,10,255)
   text("Map Size: " + tmap.getMapSize(), 10, 300);
   text("Layer 0 Type: " + tmap.getType(0), 10, 350);
   //image(fistCat, player.x, player.y)
+  player.offsetx = -player.x+width/2
+  player.offsety = -player.y+height/2
+  player.draw();
   for (let i = 0; i < Object.keys(players).length; i++) {
     pyer = players[Object.keys(players)[i]];
+    pyer.offsetx = -player.x+width/2
+    pyer.offsety = -player.y+height/2
     pyer.draw();
   }
   let needsupdate = false
@@ -102,12 +115,7 @@ function draw() {
   if(needsupdate){
     socket.emit('move',player)
   }
-  if (keyIsPressed) {
-    if(key == 'a' || key == 'A') x -= player.speed;
-    if(key == 'd' || key == 'D') x += player.speed;
-    if(key == 'w' || key == 'W') y -= player.speed;
-    if(key == 's' || key == 'S') y += player.speed;
+  //player.draw()
 }
-  
-}
+
 

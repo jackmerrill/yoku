@@ -11,6 +11,8 @@ class Player { // Fists
         this.x = x
         this.y = y
         this.cass = cass
+        this.offsetx = 0;
+        this.offsety = 0;
         this.direction = direction
     }
     draw() {
@@ -18,20 +20,20 @@ class Player { // Fists
         imageMode(CENTER);
         
         if (this.cass == "fists" && this.direction == "down") {
-            image(fistB, this.x, this.y)
+            image(fistB, this.x+this.offsetx, this.y+this.offsety)
         }
         else if(this.cass == "fists" && this.direction == "up") {
-            image(fistF, this.x, this.y)
+            image(fistF, this.x+this.offsetx, this.y+this.offsety)
         }
         else if(this.cass == "fists" && this.direction == "left") {
-            image(fistL, this.x, this.y)
+            image(fistL, this.x+this.offsetx, this.y+this.offsety)
         } 
         else if (this.cass == "fists" && this.direction == "right") {
-            image(fistR, this.x, this.y)
+            image(fistR, this.x+this.offsetx, this.y+this.offsety)
         }
         else {
             print(this)
-            ellipse(this.x, this.y, 30)
+            ellipse(this.x+this.offsetx, this.y+this.offsety, 30)
         }
 
     }
