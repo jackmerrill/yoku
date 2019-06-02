@@ -1,5 +1,6 @@
 class Player { // Fists
-    constructor(x,y, name, cass,direction="left") {
+    constructor(x,y, name, cass="fist",direction="left") {
+        
         this.name = name
         this.health = 100
         this.shield = 0
@@ -14,23 +15,31 @@ class Player { // Fists
         this.offsetx = 0;
         this.offsety = 0;
         this.direction = direction
+        images[this.cass]["B"].resize(100,100)
+        images[this.cass]["F"].resize(100,100)
+        images[this.cass]["L"].resize(100,100)
+        images[this.cass]["R"].resize(100,100)
     }
     draw() {
         //ellipse(this.x, this.y, 30)
         
         imageMode(CENTER);
         
-        if (this.cass == "fists" && this.direction == "up") {
-            image(fistB, this.x+this.offsetx, this.y+this.offsety)
+        if (this.direction == "up") {
+            
+            image(images[this.cass]["B"], this.x+this.offsetx, this.y+this.offsety)
         }
-        else if(this.cass == "fists" && this.direction == "down") {
-            image(fistF, this.x+this.offsetx, this.y+this.offsety)
+        else if(this.direction == "down") {
+            
+            image(images[this.cass]["F"], this.x+this.offsetx, this.y+this.offsety)
         }
-        else if(this.cass == "fists" && this.direction == "left") {
-            image(fistL, this.x+this.offsetx, this.y+this.offsety)
+        else if(this.direction == "left") {
+            
+            image(images[this.cass]["L"], this.x+this.offsetx, this.y+this.offsety)
         } 
-        else if (this.cass == "fists" && this.direction == "right") {
-            image(fistR, this.x+this.offsetx, this.y+this.offsety)
+        else if (this.direction == "right") {
+            
+            image(images[this.cass]["R"], this.x+this.offsetx, this.y+this.offsety)
         }
         else {
             print(this)
@@ -91,13 +100,7 @@ class Weapon {
         this.rotation = -180
     }
     draw() {
-        if (player.cass == "fists") {
-            image(fistH, player.x+30, player.y)
-        }
-        else {
-            print(player)
-            ellipse(player.x, player.y, 30)
-        }
+        image(fistH, player.x+30, player.y)
 
     }
     rot(num) {
