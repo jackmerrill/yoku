@@ -67,11 +67,18 @@ function setup() {
   socket.on('player move',function(data){
     players[data.sid].sid = data.sid;
     players[data.sid].x = data.x
+    players[data.sid].health = data.health;
+    players[data.sid].xp = data.xp;
     players[data.sid].y = data.y
     players[data.sid].direction = data.direction;
     players[data.sid].cass = data.cass;
     if(data.sid != player.sid){
       players[data.sid].draw();
+    }
+    else {
+      player.health = players[data.sid].health
+      player.xp = players[data.sid].xp
+      player.speed = players[data.sid].speed
     }
   });
   s = tmap.getMapSize();
@@ -157,5 +164,10 @@ function draw() {
   }
   //player.draw()
 }
-
+function keyPressed(key) {
+  if (key.keyCode == 32) {
+    print("attack")
+    socket.emit("attack")
+  }
+}
 

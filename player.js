@@ -17,6 +17,7 @@ class Player { // Fists
     }
     draw() {
         //ellipse(this.x, this.y, 30)
+        
         imageMode(CENTER);
         
         if (this.cass == "fists" && this.direction == "up") {
@@ -35,6 +36,10 @@ class Player { // Fists
             print(this)
             ellipse(this.x+this.offsetx, this.y+this.offsety, 30)
         }
+        push()
+        fill(0);
+        text(this.health+"%", this.x+this.offsetx-30, this.y+this.offsety-30)
+        pop()
 
     }
 }
