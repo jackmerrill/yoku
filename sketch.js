@@ -15,11 +15,31 @@ let currentX;
 let currentY;
 let oldx
 let oldy
+let images = {};
+let rand;
+function loadCat(cat) {
+  let fistB = loadImage('assets/img/'+cat+'Cat/'+cat+'B.png')
+  let fistF = loadImage('assets/img/'+cat+'Cat/'+cat+'F.png')
+  let fistL = loadImage('assets/img/'+cat+'Cat/'+cat+'L.png')
+  let fistR = loadImage('assets/img/'+cat+'Cat/'+cat+'R.png')
+  fistF.resize(70,70)
+  fistB.resize(70,70)
+  fistR.resize(70,70)
+  fistL.resize(70,70)
+  //fistH.resize(100,100)
+  return {"B":fistB,"F":fistF,"L":fistL,"R":fistR};
+}
 function preload(){
-  fistB = loadImage('assets/img/fistCat/fistB.png')
-  fistF = loadImage('assets/img/fistCat/fistF.png')
-  fistL = loadImage('assets/img/fistCat/fistL.png')
-  fistR = loadImage('assets/img/fistCat/fistR.png')
+  let words = ["fist","mage","bow","engi","blade","fists"]
+  for (let i = 0; i < words.length; i++) {
+    let tempCat = loadCat(words[i])
+    for (let index = 0; index < tempCat.keys; index++) {
+      tempCat[tempCat.keys()[index]].resize(100,100);
+    }
+    images[words[i]] = tempCat
+  }
+  rand = random(words);
+  
   tmap = loadTiledMap("Yoku", "data");
 
   // WEAPONS
@@ -46,14 +66,9 @@ function preload(){
   // mageCat = loadImage('assets/img/mageCat.png')
   // bowCat = loadImage('assets/img/bowCat.png')
 }
-
 function setup() {
   createCanvas(1280,720)
-  fistF.resize(75,75)
-  fistB.resize(75,75)
-  fistR.resize(75,75)
-  fistL.resize(75,75)
-  fistH.resize(75,75)
+
 
   //player = new Player(350,350)
   socket = io('http://207.63.186.14:5000');
@@ -71,6 +86,7 @@ function setup() {
   })
   socket.on('addPlayer',function(data){
     print("added player")
+    print(data.cass)
     players[data.sid] = new Player(data.x,data.y,data.name,data.cass,data.direction)
     players[data.sid].sid = data.sid;
   });
@@ -115,7 +131,7 @@ function setup() {
   oldx = offsetx;
   oldy = offsety;
   
-  player = new Player(x,y,"name")
+  player = new Player(x,y,"name",rand)
   weapon = new Weapon()
 
   fill(0)
@@ -192,14 +208,14 @@ function draw() {
     weapon.draw()
     needsupdate = true
   }
-  player.cass = "fists"
+  //player.cass = "fists"
   if(needsupdate){
     socket.emit('move',player)
   }
   //player.draw()
 }
 function keyPressed(key) {
-  if (key.keyCode == 32) {
+  if (key.keyCode == 32 && player.health > 0) {
     print("attack")
     socket.emit("attack")
   }
