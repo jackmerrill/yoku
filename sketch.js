@@ -17,6 +17,9 @@ let oldx
 let oldy
 let images = {};
 let rand;
+let name
+let login
+
 function loadCat(cat) {
   let fistB = loadImage('assets/img/'+cat+'Cat/'+cat+'B.png')
   let fistF = loadImage('assets/img/'+cat+'Cat/'+cat+'F.png')
@@ -30,6 +33,7 @@ function loadCat(cat) {
   return {"B":fistB,"F":fistF,"L":fistL,"R":fistR};
 }
 function preload(){
+  login = false
   let words = ["fist","mage","bow","engi","blade","fists"]
   for (let i = 0; i < words.length; i++) {
     let tempCat = loadCat(words[i])
@@ -53,13 +57,11 @@ function preload(){
   bladeS = loadImage('assets/img/bladeCat/bladeSword.png')
 
   // LOGO
-  logo = loadImage('assets/img/logo.png')
+  logo = loadImage('assets/Logo.png')
 
 
 
 
-
-  // Form
   
 
   // engiCat = loadImage('assets/img/engiCat.png')
@@ -69,6 +71,25 @@ function preload(){
 function setup() {
   createCanvas(1280,720)
 
+  logo.resize(625.5, 0)
+  fill(255)
+  imageMode(CENTER)
+  image(logo, width/2, height/8)
+  textAlign(CENTER)
+  input = createInput();
+  input.position(width/2 - 80, 240);
+
+  button = createButton('submit');
+  button.position(800-80, 240, 65);
+  button.mousePressed(function(){name = input.value()});
+  fill(0)
+  textSize(24)
+  text("Nickname", width/2, 220)
+  afterLogin()
+  login = true
+}
+
+function afterLogin() {
 
   //player = new Player(350,350)
   socket = io('http://207.63.186.14:5000');
@@ -131,13 +152,14 @@ function setup() {
   oldx = offsetx;
   oldy = offsety;
   
-  player = new Player(x,y,"name",rand)
+  player = new Player(x,y,name,rand)
   weapon = new Weapon()
 
   fill(0)
 }
 
 function draw() {
+  if (login == false) {return}
   background(0);
   let currentX = (s.x*tmap.getTileSize().x)/2;
   let currentY = (s.y*tmap.getTileSize().y)/2;
