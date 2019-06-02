@@ -11,6 +11,10 @@ let viewportx = x;
 let viewporty = y;
 let viewportxsize = 1000;
 let viewportysize = 1000;
+let currentX;
+let currentY;
+let oldx
+let oldy
 function preload(){
   fistB = loadImage('assets/img/fistCat/fistB.png')
   fistF = loadImage('assets/img/fistCat/fistF.png')
@@ -98,6 +102,9 @@ function setup() {
   let offsety = (s.y*tmap.getTileSize().y)/2;
   let viewportx = x;
   let viewporty = y;
+  oldx = offsetx;
+  oldy = offsety;
+  
   player = new Player(x,y,"name")
   weapon = new Weapon()
 
@@ -106,6 +113,8 @@ function setup() {
 
 function draw() {
   background(0);
+  let currentX = (s.x*tmap.getTileSize().x)/2;
+  let currentY = (s.y*tmap.getTileSize().y)/2;
   x = player.x
   y = player.y
   //background(tmap.getBackgroundColor());
@@ -122,18 +131,24 @@ function draw() {
   //image(fistCat, player.x, player.y)
   player.offsetx = -player.x+width/2
   player.offsety = -player.y+height/2
-  player.draw();
+  
   for (let i = 0; i < Object.keys(players).length; i++) {
     pyer = players[Object.keys(players)[i]];
     pyer.offsetx = -player.x+width/2
     pyer.offsety = -player.y+height/2
-    if(pyer.sid != player.sid){
+    if(pyer.sid != player.sid && pyer.health > 0){
       pyer.draw();
     }
     
     weapon.draw()
   }
   let needsupdate = false
+  if(player.health < 1) {
+    player.x = lerp(x, currentX, 0.05)
+    player.y = lerp(y, currentY, 0.05)
+    return
+  };
+  player.draw();
   if (keyIsDown(65)) { //A
     //console.log(`Key ${keyCode.key} pressed.`)
     player.x -= player.speed
